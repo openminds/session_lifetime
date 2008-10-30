@@ -1,0 +1,31 @@
+= SessionLifetime
+
+SessionLifetime is a plugin which allows you to set a lifetime on your session. You can set it to expire the session 1 hour after the last activity.
+
+== Example
+  class ApplicationController << ActionController::Base
+    expires_session
+  end
+  
+Or you can give some options:
+* :time - After how much time of inactivity should the session be invalidated. Default is 1 hour
+* :redirect_to - Where should we redirect the user to once their session has expired
+
+  class ApplicationController << ActionController::Base
+    expires_session :time => 2.hours, :redirect_to => '/login'
+  end
+
+You can also define the +on_expiry+ method, which will be executed after the session has been invalidated. It's useful for setting a flash message for the user.
+  class ApplicationController << ActionController::Base
+    expires_session :time => 2.hours, :redirect_to => '/login'
+    
+    protected
+    def on_expiry
+      flash[:notice] = "Your session has been expired, and you have been logged out."
+    end
+  end
+
+== Missing something?
+I wrote this plugin to solve the problems I had with default Rails session handling. If you have an additional need which you think would be great for this plugin, give me a shout at sessionlifetime@defv.be, or through GitHub, and I'll be more then happy to implement your proposal.
+
+Copyright (c) 2008 Jan De Poorter, released under the MIT license

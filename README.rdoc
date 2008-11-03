@@ -18,6 +18,11 @@ Or you can give some options:
     }
   end
 
+If you want a controller not to have expiring_session you can use +skip_before_filter+:
+  class SessionController << ApplicationController
+    skip_before_filter :check_session_lifetime, :only => [:new, :create]
+  end
+
 == Missing something?
 I wrote this plugin to solve the problems I had with default Rails session handling. If you have an additional need which you think would be great for this plugin, give me a shout at sessionlifetime@defv.be, or through GitHub, and I'll be more then happy to implement your proposal.
 
